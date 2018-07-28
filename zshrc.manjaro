@@ -1,0 +1,66 @@
+#
+# ~/.bash_profile
+
+
+LS_COLORS=$(cat ~/dot_files/cols.dat)
+
+# option completion
+autoload -U compinit
+compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+autoload -Uz colors
+zstyle ':completion:*' list-colors "${LS_COLORS}"
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin 
+
+
+# prompt
+colors
+PROMPT='@%M %~ 
+%F{cyan}~~>%f '
+PROMPT2='... '
+RPROMPT='%*'
+
+# histry
+export HISTFILE=${HOME}/.zhistory
+export HISTSIZE=100000
+export SAVEHIST=10000000
+setopt EXTENDED_HISTORY
+setopt share_history
+bindkey "^r" history-incremental-search-backward
+#bindkey "^R" history-incremental-search-forward
+
+# alias
+alias ls='ls -G --color=auto'
+alias ll='ls -G -alhF --color=auto'
+alias lh='ls -G -lh --color=auto'
+alias la='ls -G -A --color=auto'
+alias l='ls -G -CF --color=auto'
+alias sl='ls --color=auto'
+alias lns='ln -s'
+alias less='less -N' 
+alias rm='rm -i'
+alias pd='pushd'
+alias vim='nvim'
+
+# word def
+export WORDCHARS="*?_-.[]~&!#$%^<>"
+
+# various setting
+setopt AUTO_CD
+setopt AUTO_NAME_DIRS
+setopt AUTO_PARAM_KEYS
+setopt NO_BEEP
+setopt NUMERIC_GLOB_SORT
+setopt NOCLOBBER
+
+JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
+export JAVA_HOME
+PATH=/home/rshimura/packages/imp-2.8.0/bin:$PATH:$JAVA_HOME/bin
+export PATH
+
+# pyenv,pyenv-virtualenv
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/versions/anaconda3-5.1.0/bin:$PYENV_ROOT/bin:$PATH
+eval "$(pyenv init -)"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+

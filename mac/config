@@ -1,0 +1,121 @@
+HOST hansolo
+        User ryo_shimura
+        HostName hansolo.force.cs.is.nagoya-u.ac.jp
+        IdentityFile ~/.ssh/id_rsa.darth
+
+HOST darth
+        User rshimura
+        HostName darth
+        IdentityFile ~/.ssh/id_rsa.darth
+        ProxyCommand ssh -W %h:%p hansolo
+HOST maul
+        User rshimura
+        HostName maul
+        IdentityFile ~/.ssh/id_rsa.darth
+        ProxyCommand ssh -W %h:%p hansolo
+
+HOST mae
+    HostName maestoso.bi.a.u-tokyo.ac.jp
+    GateWayPorts yes
+    IdentityFile ~/.ssh/id_rsa.bilab
+    User rshimura
+    DynamicForward localhost:8192
+    ServerAliveInterval 60
+    UseKeychain yes
+    AddKeysToAgent yes
+
+HOST tosto
+    HostName tostofs3-b.bi.a.u-tokyo.ac.jp
+    IdentityFile ~/.ssh/id_rsa.bilab
+    User rshimura
+    UseKeychain yes
+    AddKeysToAgent yes
+    
+HOST bri
+    HostName brillantegw3
+    IdentityFile ~/.ssh/id_rsa.bilab
+    User rshimura
+    ProxyCommand ssh -W %h:%p tosto
+    UseKeychain yes
+    AddKeysToAgent yes
+
+HOST vivo
+    HostName vivo.bi.a.u-tokyo.ac.jp
+    IdentityFile ~/.ssh/id_rsa.bilab
+    User rshimura
+    GateWayPorts yes
+    UseKeychain yes
+    AddKeysToAgent yes
+
+HOST nezuout
+    HostName nezu.bi.a.u-tokyo.ac.jp
+    IdentityFile ~/.ssh/id_rsa.bilab
+    User rshimura
+    ProxyCommand ssh -W %h:%p mae
+
+HOST yayoiout
+    HostName yayoi
+    IdentityFile ~/.ssh/id_rsa.bilab
+    LocalForward 10023 yaoyi:22
+    ProxyCommand ssh -W %h:%p nezuout
+    UseKeychain yes
+    AddKeysToAgent yes
+
+HOST nezu
+    HostName nezu.bi.a.u-tokyo.ac.jp
+    IdentityFile ~/.ssh/id_rsa.bilab
+    User rshimura
+    UseKeychain yes
+    AddKeysToAgent yes
+
+HOST nezu3
+    HostName nezugw3
+    IdentityFile ~/.ssh/id_rsa.bilab
+    User rshimura
+    ProxyCommand ssh rshimura@nezu -W %h:%p
+    UseKeychain yes
+    AddKeysToAgent yes
+
+HOST yayoi
+    HostName yayoi
+    IdentityFile ~/.ssh/id_rsa.bilab
+    User rshimura
+    LocalForward 10023 yayoi:22
+    ProxyCommand ssh -l rshimura nezu  -W %h:%p
+    UseKeychain yes
+    AddKeysToAgent yes
+
+HOST reedbush
+    HostName reedbush-u.cc.u-tokyo.ac.jp
+    IdentityFile ~/.ssh/id_rsa.bilab
+    User i58005
+    UseKeychain yes
+    AddKeysToAgent yes
+    
+HOST rb
+    HostName reedbush-u4.cc.u-tokyo.ac.jp
+    IdentityFile ~/.ssh/id_rsa.bilab
+    User i58005
+    UseKeychain yes
+    AddKeysToAgent yes
+    ServerAliveInterval 3
+
+HOST tbm
+    HostName login1.t3.gsic.titech.ac.jp
+    IdentityFile ~/.ssh/id_rsa.bilab
+    User 17ITA311
+    ServerAliveInterval 60
+    UseKeychain yes
+    AddKeysToAgent yes
+
+Host arpeggio
+  HostName arpeggio
+  User bilab
+  ServerAliveInterval 60
+  XAuthLocation /usr/X11/bin/xauth
+  ForwardX11Timeout 596h
+  ForwardAgent yes
+  ForwardX11   yes
+  ForwardX11Trusted   yes
+  AddKeysToAgent yes
+  UseKeychain yes
