@@ -2,8 +2,6 @@
 # ~/.bash_profile
 
 
-LS_COLORS=$(cat ~/dot_files/cols.dat)
-
 # option completion
 autoload -U compinit
 compinit

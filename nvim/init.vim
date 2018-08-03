@@ -1,6 +1,6 @@
 let mapleader = "\<Space>"
-let g:python_host_prog = '~/.pyenv/versions/nvim2/bin/python'
-let g:python3_host_prog = '~/.pyenv/versions/nvim3/bin/python'
+let g:python_host_prog = '~/.pyenv/versions/2.7.14/bin/python'
+let g:python3_host_prog  =  '~/.pyenv/versions/anaconda3-5.0.0/bin/python'
 
 "dein Scripts-----------------------------
 if &compatible
