@@ -1,6 +1,7 @@
 let mapleader = "\<Space>"
 let g:python_host_prog = '~/.pyenv/versions/2.7.14/bin/python'
-let g:python3_host_prog  =  '~/.pyenv/versions/anaconda3-5.0.0/bin/python'
+"let g:python3_host_prog  =  '~/.pyenv/versions/anaconda3-5.0.0/bin/python'
+
 
 "dein Scripts-----------------------------
 if &compatible
@@ -173,4 +174,14 @@ set termguicolors
 "let base16colorspace=256
 colorscheme base16-tomorrow-night
 "color dracula
+"
+"set indent width
+filetype plugin on
+filetype indent on
+autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
+autocmd FileType js setlocal sw=2 sts=2 ts=2 et
+autocmd FileType html setlocal sw=2 sts=2 ts=2 et
+autocmd FileType python inoremap ; :
+autocmd FileType python inoremap : ;
+
 

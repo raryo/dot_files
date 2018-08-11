@@ -1,80 +1,87 @@
-# Base16 Vim
-See the [Base16 repository](https://github.com/chriskempson/base16) for more information.  
-This theme was built with [Base16 Builder PHP](https://github.com/chriskempson/base16-builder-php).
+denite.nvim
+===========
 
-Supports graphical Vim and console Vim.
+[![Build Status](https://travis-ci.org/Shougo/denite.nvim.svg?branch=master)](https://travis-ci.org/Shougo/denite.nvim)
 
-![Base16 Vim](https://raw.github.com/chriskempson/base16-vim/master/base16-vim.png)
+## About
 
-## Terminal Themes
-For terminal Vim (non-gui) please ensure you are using a base16 terminal theme.
+[![Join the chat at https://gitter.im/Shougo/denite.nvim](https://badges.gitter.im/Shougo/denite.nvim.svg)](https://gitter.im/Shougo/denite.nvim?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-* [iTerm2](https://github.com/chriskempson/base16-iterm2)
+Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
+It can replace many features or plugins with its interface.
+It is like a fuzzy finder, but is more generic.
+You can extend the interface and create the sources.
 
-## Installation
+Some things you can do with it include:
 
-Add `colorscheme base16-default-dark` to your `~/.vimrc`.
+* Opening files
 
-### Vundle
-Add the following to your `~/.vimrc` file and run `PluginInstall` in Vim.
+* Switching buffers
 
-    Plugin 'chriskempson/base16-vim'
+* Inserting the value of a register
 
-### vim-plug
-Add the following to your `~/.vimrc` file and run `PlugInstall` in Vim.
+* Changing current directory
 
-    Plug 'chriskempson/base16-vim'
+* Searching for a string
 
-### Pathogen
+[Unite.vim](https://github.com/Shougo/unite.vim) was meant to be like [Helm](https://github.com/emacs-helm/helm) for Vim.
+But the implementation is ugly and it's very slow.
 
-    cd ~/.vim/bundle
-    git clone https://github.com/chriskempson/base16-vim.git
+Denite resolves Unite's problems. Here are some of its benefits:
 
-### Manual
+* Theoretically faster because the main process is executed by Python
 
-    cd ~/.vim/colors
-    git clone git://github.com/chriskempson/base16-vim.git base16
-    cp base16/colors/*.vim .
-    
-## 256 colorspace 
-If using a Base16 terminal theme designed to keep the 16 ANSI colors intact (a "256" variation) **and** have sucessfully modified your 256 colorspace with [base16-shell](https://github.com/chriskempson/base16-shell) you'll need to add the following to your `~/.vimrc` **before** the colorsheme declaration.
+* Theoretically more stable because no other processes can be performed when
+it runs.
 
-    let base16colorspace=256  " Access colors present in 256 colorspace
+* The implementation is simpler than unite
 
-This will cause vim to access the colours in the modified 256 colorspace. Please **do not** enable this simply because you have a 256 color terminal as this will cause colors to be displayed incorrectly. 
+* Has greater potential to implement new features
 
-## Troubleshooting
-There is a script to help troubleshoot colour issues called `colortest` available in the [Base16 Shell](https://github.com/chriskempson/base16-shell) repository.
+* Python3 is easier to work with than Vimscript
 
-If you are using a ISO-8613-3 compatible terminal (
-[vim docs](https://github.com/vim/vim/blob/23c1b2b018c8121ca5fcc247e37966428bf8ca66/runtime/doc/options.txt#L7876),
-[neovim docs](https://neovim.io/doc/user/options.html#'termguicolors')), and
-you see a green or blue line, try to enable `termguicolors`:
+* There are a lot of useful tools to keep code simple (linter, tester, etc...)
+in Python3.
 
-```vim
-set termguicolors
-```
+* Unite is officially obsolete, minor bugs (or even major bugs) are
+not fixed anymore
 
-### Green line numbers
-![green line numbers screenshot](https://raw.github.com/chriskempson/base16-vim/master/without-base16colorspace-256-with-256-terminal-theme.png)
 
-If your Vim looks like the above image you are using a 256 terminal theme without setting `let base16colorspace=256` in your `~/.vimrc`. Either set `let base16colorspace=256` in your `~/.vimrc` or use a non 256 terminal theme.
+## Requirements
 
-### Blue line numbers
-![blue line numbers screenshot](https://raw.github.com/chriskempson/base16-vim/master/with-base16colorspace-256-without-base16-shell.png)
+Denite requires Neovim or Vim8.0+ with `if_python3`.
+If `:echo has("python3")` returns `1`, then you're done; otherwise, see below.
 
-If your Vim looks like the above image you are setting `let base16colorspace=256` in your `~/.vimrc` but either not running [Base16 Shell](https://github.com/chriskempson/base16-shell) or [Base16 Shell](https://github.com/chriskempson/base16-shell) is not working for your terminal. Either ensure [Base16 Shell](https://github.com/chriskempson/base16-shell) is working by running the `colortest` available in the [Base16 Shell](https://github.com/chriskempson/base16-shell) repository or not setting `let base16colorspace=256` in your `~/.vimrc`.
+You can enable Python3 interface with `pip`:
 
-## Customization
-If you want to do some local customization, you can add something like this to your `~/.vimrc`:
+    pip3 install neovim
 
-```vim
-function! s:base16_customize() abort
-  call Base16hi("MatchParen", g:base16_gui05, g:base16_gui03, g:base16_cterm05, g:base16_cterm03, "bold,italic", "")
-endfunction
+If you want to read the Neovim-python/python3 interface install documentation,
+you should read `:help provider-python`.
 
-augroup on_change_colorschema
-  autocmd!
-  autocmd ColorScheme * call s:base16_customize()
-augroup END
-```
+Note: You need to install Python3.5+ or `pip3 install typing`.
+
+### For Windows users
+
+1. Install Vim from [Vim Win32 Installer
+   releases](https://github.com/vim/vim-win32-installer/releases)
+2. Download [Python latest embeddable zip
+   file](https://www.python.org/downloads/windows/) and copy the all files in
+   the zip file to the folder where you installed Vim.
+
+**Note:** You need to do 1. and 2. with the common-arch files (x86 or x64).
+
+## Future works (not implemented yet)
+
+* source completion support: `completion(args, arglead)`
+
+* [`defx`](https://github.com/Shougo/defx.nvim) support
+
+* match highlight improvement
+
+## Screenshots
+
+![file/rec source](https://user-images.githubusercontent.com/13142418/34324674-b8ddd5b8-e840-11e7-9b77-d94e1b084bda.gif)
+![SpaceVim Guide](https://user-images.githubusercontent.com/13142418/34324752-e5a89900-e842-11e7-9f87-6d8789ba3871.gif)
+![colorscheme source](https://user-images.githubusercontent.com/13142418/34324786-f4dd39a2-e843-11e7-97ef-7a48ee04d27b.gif)
+

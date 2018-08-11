@@ -9,7 +9,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 autoload -Uz colors
 zstyle ':completion:*' list-colors "${LS_COLORS}"
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin 
-
+LS_COLORS=$(cat ~/cols.dat)
 
 # prompt
 colors
@@ -58,7 +58,7 @@ export PATH
 
 # pyenv,pyenv-virtualenv
 export PYENV_ROOT=$HOME/.pyenv
-export PATH=$PYENV_ROOT/versions/anaconda3-5.1.0/bin:$PYENV_ROOT/bin:$PATH
+export PATH=$PYENV_ROOT/bin:$PATH
 eval "$(pyenv init -)"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 

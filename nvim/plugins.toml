@@ -86,5 +86,4 @@ hook_add = '''
 	      \ '<denite:assign_previous_text>',
 	      \ 'noremap'
 	      \)
-
 '''
