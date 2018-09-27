@@ -174,6 +174,11 @@ set termguicolors
 "let base16colorspace=256
 colorscheme base16-tomorrow-night
 "color dracula
+highlight Normal ctermbg=NONE guibg=NONE
+highlight NonText ctermbg=NONE guibg=NONE
+highlight SpecialKey ctermbg=NONE guibg=NONE
+highlight EndOfBuffer ctermbg=NONE guibg=NONE
+highlight LineNr ctermbg=NONE guibg=NONE
 "
 "set indent width
 filetype plugin on

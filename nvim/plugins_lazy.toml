@@ -6,7 +6,6 @@ on_ft = ['python']
 repo = 'zchee/deoplete-jedi'
 on_ft = ['python']
 hook_add = '''
-    let g:deoplete#sources#jedi#python_path = '/Users/rshimura/.pyenv/shims/python'
 '''
 
 [[plugins]]

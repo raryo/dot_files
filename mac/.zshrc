@@ -18,7 +18,7 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/s
 # prompt
 colors
 PROMPT='%F{255}@%M %~%f 
-%F{154}~~>%f '
+%F{154}|>%f '
 PROMPT2='... '
 RPROMPT='%*'
 

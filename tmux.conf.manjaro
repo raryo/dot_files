@@ -3,6 +3,7 @@ unbind C-b
 bind  C-s send-prefix
 set -g default-shell /bin/zsh
 set -g escape-time 0
+set repeat-time 200
 set-option -g default-terminal "screen-256color" 
 
 
@@ -99,6 +100,10 @@ bind-key -r N select-window -t :-
 bind-key -r P select-window -t :+
 unbind-key n
 unbind-key p
+unbind-key h
+unbind-key j
+unbind-key k
+unbind-key l
 unbind-key C-n
 unbind-key C-p
 
