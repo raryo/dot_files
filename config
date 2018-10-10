@@ -1,0 +1,63 @@
+# HPC
+Host rb
+    User i58005
+    HostName reedbush-u4.cc.u-tokyo.ac.jp
+    ServerAliveInterval 60
+
+Host tbm
+    User 17ITA311
+    HostName login1.t3.gsic.titech.ac.jp
+    ServerAliveInterval 60
+
+# ota lab
+Host hansolo
+        User ryo_shimura
+        HostName hansolo.force.cs.is.nagoya-u.ac.jp
+        IdentityFile ~/.ssh/id_rsa.darth
+        DynamicForward localhost:8192
+        GateWayPorts yes
+
+Host darth maul
+        HostName %h
+        IdentityFile ~/.ssh/id_rsa.darth
+        ProxyCommand ssh -W %h:%p hansolo
+
+# Bilab
+Host mae
+    HostName maestoso.bi.a.u-tokyo.ac.jp
+    GateWayPorts yes
+    DynamicForward localhost:8192
+    ServerAliveInterval 60
+    
+Host tosto
+    HostName tostofs3-b
+
+Host vivo
+    HostName vivo
+    GateWayPorts yes
+
+Host tosto
+    HostName tostofs3-b
+
+Host bri 
+    HostName brillantegw3
+    ProxyCommand ssh -W %h:%p tosto
+
+Host nezu
+    HostName nezu
+
+Host yayoi
+    HostName yayoi
+    ProxyCommand ssh -W %h:%p nezu
+
+Host mbp
+    HostName 192.168.0.71
+
+Host *
+    User rshimura
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_rsa.bilab
+
+Match !host maestoso.bi.a.u-tokyo.ac.jp !exec "ping -w 1 -c 1 %h >/dev/null 2>&1 || exit 1"
+    ProxyCommand ssh -W %h:%p mae
+

@@ -23,6 +23,7 @@ export SAVEHIST=10000000
 setopt EXTENDED_HISTORY
 setopt share_history
 bindkey "^r" history-incremental-search-backward
+bindkey -r '^s'
 #bindkey "^R" history-incremental-search-forward
 
 # alias
@@ -57,22 +58,20 @@ export PATH
 
 # pyenv,pyenv-virtualenv
 export PYENV_ROOT=$HOME/.pyenv
-export PATH=$PYENV_ROOT/bin:$PATH
+export PATH=$PYENV_ROOT/bin:$PATH:$HOME/.pyenv/versions/2.7.14/bin
 eval "$(pyenv init -)"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+export PATH=$PYENV_ROOT/versions/2.7.14/bin:$PATH
 
 # julia
 export PATH=$PATH:$HOME/apps/julia-1.0.0/bin
 
 # ssh-agent config
-agent="$HOME/tmp/ssh-agent-$USER"
-if [ -S "$SSH_AUTH_SOCK" ]; then
-	case $SSH_AUTH_SOCK in
-	/run/user/1000/keyring/ssh)
-		ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
-	esac
-elif [ -S $agent ]; then
-	export SSH_AUTH_SOCK=$agent
-else
-	echo "no ssh-agent"
+if [ -n "$DESKTOP_SESSION" ];then
+    eval $(gnome-keyring-daemon --start)
+    export SSH_AUTH_SOCK
 fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/rshimura/.sdkman"
+[[ -s "/home/rshimura/.sdkman/bin/sdkman-init.sh" ]] && source "/home/rshimura/.sdkman/bin/sdkman-init.sh"
