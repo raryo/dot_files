@@ -6,25 +6,30 @@
 ## Expected
 
 
-## Environment Information (Required!)
+## Environment Information
 
- * denite version (SHA1):
+ * deoplete version (SHA1):
 
  * OS:
 
- * Vim/neovim version:
+ * neovim/Vim `:version` output:
 
  * `:checkhealth` or `:CheckHealth` result(neovim only):
 
-## Provide a minimal init.vim with less than 50 lines (Required!)
+## Provide a minimal init.vim/vimrc with less than 50 lines (Required!)
 
 ```vim
-" Your minimal init.vim
-set runtimepath+=~/path/to/denite.nvim/
+" Your minimal init.vim/vimrc
+set runtimepath+=~/path/to/deoplete.nvim/
+let g:deoplete#enable_at_startup = 1
+
+" For Vim only
+"set runtimepath+=~/path/to/nvim-yarp/
+"set runtimepath+=~/path/to/vim-hug-neovim-rpc/
 ```
 
 
-## How to reproduce problems from neovim startup (Required!)
+## How to reproduce the problem from neovim/Vim startup (Required!)
 
  1. foo
  2. bar

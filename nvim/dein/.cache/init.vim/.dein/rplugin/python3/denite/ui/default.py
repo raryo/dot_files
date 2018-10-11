@@ -89,7 +89,7 @@ class Default(object):
                 self._current_mode = context['mode']
 
             update = ('immediately', 'immediately_1',
-                      'cursor_wrap', 'cursor_pos')
+                      'cursor_wrap', 'cursor_pos', 'prev_winid')
             for key in update:
                 self._context[key] = context[key]
 
@@ -241,10 +241,7 @@ class Default(object):
         return direction
 
     def _get_wininfo(self):
-        if not self._vim.call('exists', '*getwininfo'):
-            return []
-
-        wininfo = self._vim.call('getwininfo', self._vim.call('win_getid'))[0]
+        wininfo = self._vim.call('denite#helper#_get_wininfo')
         return [
             self._vim.options['columns'], self._vim.options['lines'],
             self._vim.call('tabpagebuflist'),

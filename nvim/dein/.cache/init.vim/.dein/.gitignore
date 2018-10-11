@@ -1,4 +1,2 @@
+/doc/tags
 *.py[cod]
-doc/tags
-.cache
-.mypy_cache

@@ -15,14 +15,6 @@ function! deoplete#init#_is_handler_enabled() abort
 endfunction
 
 function! deoplete#init#_initialize() abort
-  if has('vim_starting')
-    augroup deoplete
-      autocmd!
-      autocmd VimEnter * call deoplete#enable()
-    augroup END
-    return 1
-  endif
-
   if exists('g:deoplete#_initialized')
     return 1
   endif
@@ -212,11 +204,7 @@ function! deoplete#init#_context(event, sources) abort
   let width = winwidth(0) - col('.') + len(matchstr(input, '\w*$'))
   let max_width = (width * 2 / 3)
 
-  if a:event ==# 'BufNew'
-    let bufnr = expand('<abuf>')
-  else
-    let bufnr = bufnr('%')
-  endif
+  let bufnr = expand('<abuf>') !=# '' ? expand('<abuf>') : bufnr('%')
   let bufname = bufname(bufnr)
   let bufpath = fnamemodify(bufname, ':p')
   if !filereadable(bufpath) || getbufvar(bufnr, '&buftype') =~# 'nofile'
@@ -271,6 +259,7 @@ endfunction
 function! deoplete#init#_option() abort
   " Note: HTML omni func use search().
   return {
+        \ 'async_timeout': 100,
         \ 'auto_complete': v:true,
         \ 'auto_complete_delay': 50,
         \ 'auto_refresh_delay': 50,
@@ -291,10 +280,11 @@ function! deoplete#init#_option() abort
         \ 'on_text_changed_i': v:true,
         \ 'profile': v:false,
         \ 'min_pattern_length': 2,
-        \ 'refresh_always': v:false,
+        \ 'refresh_always': v:true,
         \ 'skip_chars': ['(', ')'],
         \ 'smart_case': &smartcase,
         \ 'sources': {},
+        \ 'trigger_key': v:char,
         \ 'yarp': v:false,
         \ }
 endfunction

@@ -2,7 +2,6 @@ let mapleader = "\<Space>"
 let g:python_host_prog = '~/.pyenv/versions/2.7.14/bin/python'
 "let g:python3_host_prog  =  '~/.pyenv/versions/anaconda3-5.0.0/bin/python'
 
-
 "dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
@@ -172,7 +171,9 @@ syntax enable
 set termguicolors
 "set t_Co=256
 "let base16colorspace=256
+"colorscheme tomorrow-night
 colorscheme base16-tomorrow-night
+"colorscheme nord
 "color dracula
 highlight Normal ctermbg=NONE guibg=NONE
 highlight NonText ctermbg=NONE guibg=NONE

@@ -58,6 +58,6 @@ Host *
     ForwardAgent yes
     IdentityFile ~/.ssh/id_rsa.bilab
 
-Match !host maestoso.bi.a.u-tokyo.ac.jp !exec "ping -w 1 -c 1 %h >/dev/null 2>&1 || exit 1"
+Match !host maestoso.bi.a.u-tokyo.ac.jp !exec "ping -W 1 -c 1 %h >/dev/null 2>&1 || exit 1"
     ProxyCommand ssh -W %h:%p mae
 

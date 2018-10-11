@@ -1,0 +1,1 @@
+../dein/repos/github.com/chriskempson/tomorrow-theme/vim/colors/Tomorrow-Night.vim

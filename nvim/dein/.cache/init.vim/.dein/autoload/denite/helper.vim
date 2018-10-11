@@ -41,7 +41,7 @@ function! denite#helper#call_denite(command, args, line1, line2) abort
   if a:command ==# 'DeniteCursorWord'
     let context.input = expand('<cword>')
   elseif a:command ==# 'DeniteBufferDir'
-    let context.path = fnamemodify(bufname('%'), ':p:h')
+    let context.path = expand('%:p:h')
   elseif a:command ==# 'DeniteProjectDir'
     let context.path = denite#project#path2project_directory(
           \ get(context, 'path', getcwd()),
@@ -211,4 +211,14 @@ function! s:_get_source_name(path) abort
     return fnamemodify(a:path, ':h:s?.*/rplugin/python3/denite/source/??:r')
   endif
   return fnamemodify(a:path, ':s?.*/rplugin/python3/denite/source/??:r')
+endfunction
+
+function! denite#helper#_get_wininfo() abort
+  let wininfo = getwininfo(win_getid())[0]
+  return {
+        \ 'bufnr': wininfo['bufnr'],
+        \ 'winnr': wininfo['winnr'],
+        \ 'winid': wininfo['winid'],
+        \ 'tabnr': wininfo['tabnr'],
+        \}
 endfunction
