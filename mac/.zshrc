@@ -50,7 +50,11 @@ alias vmd='/Applications/VMD\ 1.9.3.app/Contents/vmd/vmd_MACOSXX86'
 alias chimera='/Applications/Chimera.app/Contents/MacOS/chimera'
 alias pymol='/Applications/PyMOL.app/Contents/MacOS/MacPyMOL'
 alias crysol='/Applications/ATSAS/bin/crysol'
+alias alac='/Applications/Alacritty.app/Contents/MacOS/alacritty'
 
+function pdbget(){
+    wget https://files.rcsb.org/download/$1.pdb
+}
 
 # word def
 export WORDCHARS="*?_-.[]~&!#$%^<>"
@@ -63,13 +67,12 @@ setopt NO_BEEP
 setopt NUMERIC_GLOB_SORT
 setopt NOCLOBBER
 
-JAVA_HOME=$(readlink -n /usr/bin/javac | sed "s:/bin/javac::")
-export JAVA_HOME
+export JAVA_HOME=$(/System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/java_home)
 PATH=$PATH:$JAVA_HOME/bin
 export PATH
 
 
-export PATH=/usr/local/bin:/usr/local/opt/flex:/usr/bin:/usr/sbin:/bin:sbin:/opt/X11/bin:/usr/local/share/dotnet:/Library/Frameworks/Mono.frameworks/Versions/Current/Commands:/Library/Tex/texbin:~/bin:~/apps/solvate_1.0:~/apps/ncbi-blast-2.6.0+/bin:~/apps:$PATH
+export PATH=/usr/local/bin:/usr/local/opt/flex:/usr/bin:/usr/sbin:/bin:sbin:/opt/X11/bin:/usr/local/share/dotnet:/Library/Frameworks/Mono.frameworks/Versions/Current/Commands:/Library/Tex/texbin:~/bin:~/apps/solvate_1.0:~/apps/ncbi-blast-2.6.0+/bin:~/apps:/Users/rshimura/src/kotlin-native-macos-0.9.3/bin:$PATH
 
 # pyenv,pyenv-virtualenv
 export PYENV_ROOT=$HOME/.pyenv
