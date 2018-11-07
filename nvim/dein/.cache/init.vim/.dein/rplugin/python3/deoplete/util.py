@@ -8,10 +8,9 @@ import os
 import re
 import sys
 import glob
+import importlib.util
 import traceback
 import unicodedata
-
-from importlib.machinery import SourceFileLoader
 
 
 def set_pattern(variable, keys, pattern):
@@ -51,7 +50,9 @@ def import_plugin(path, source, classname):
     name = os.path.splitext(os.path.basename(path))[0]
     module_name = 'deoplete.%s.%s' % (source, name)
 
-    module = SourceFileLoader(module_name, path).load_module()
+    spec = importlib.util.spec_from_file_location(module_name, path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
     cls = getattr(module, classname, None)
     if not cls:
         return None
@@ -102,12 +103,12 @@ def escape(expr):
     return expr.replace("'", "''")
 
 
-def charpos2bytepos(encoding, input, pos):
-    return len(bytes(input[: pos], encoding, errors='replace'))
+def charpos2bytepos(encoding, text, pos):
+    return len(bytes(text[: pos], encoding, errors='replace'))
 
 
-def bytepos2charpos(encoding, input, pos):
-    return len(bytes(input, encoding, errors='replace')[: pos].decode(
+def bytepos2charpos(encoding, text, pos):
+    return len(bytes(text, encoding, errors='replace')[: pos].decode(
         encoding, errors='replace'))
 
 
@@ -149,8 +150,8 @@ def fuzzy_escape(string, camelcase):
     return p
 
 
-def load_external_module(file, module):
-    current = os.path.dirname(os.path.abspath(file))
+def load_external_module(base, module):
+    current = os.path.dirname(os.path.abspath(base))
     module_dir = os.path.join(os.path.dirname(current), module)
     if module_dir not in sys.path:
         sys.path.insert(0, module_dir)

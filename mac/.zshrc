@@ -24,7 +24,7 @@ RPROMPT='%*'
 
 # histry
 export HISTFILE=${HOME}/.zhistory
-export HISTSIZE=100000
+export HISTSIZE=10000000
 export SAVEHIST=10000000
 setopt EXTENDED_HISTORY
 setopt share_history

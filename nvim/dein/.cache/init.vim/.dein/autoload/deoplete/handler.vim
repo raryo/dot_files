@@ -82,9 +82,13 @@ function! s:completion_timer_start(event) abort
     call s:completion_timer_stop()
   endif
 
-  let delay = max([20, deoplete#custom#_get_option('auto_complete_delay')])
-  let s:completion_timer = timer_start(
-        \ delay, {-> s:completion_begin(a:event)})
+  let delay = deoplete#custom#_get_option('auto_complete_delay')
+  if delay > 0
+    let s:completion_timer = timer_start(
+          \ delay, {-> s:completion_begin(a:event)})
+  else
+    call s:completion_begin(a:event)
+  endif
 endfunction
 function! s:completion_timer_stop() abort
   if !exists('s:completion_timer')
@@ -272,6 +276,10 @@ function! s:is_exiting() abort
 endfunction
 
 function! s:kill_yarp() abort
+  if !exists('g:deoplete#_yarp')
+    return
+  endif
+
   if g:deoplete#_yarp.job_is_dead
     return
   endif

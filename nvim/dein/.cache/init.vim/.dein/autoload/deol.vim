@@ -20,23 +20,7 @@ function! deol#_start(options) abort
   let options = copy(a:options)
 
   if exists('t:deol') && bufexists(t:deol.bufnr)
-    let deol = t:deol
-
-    let id = win_findbuf(deol.bufnr)
-    if empty(id)
-      execute (options.split ? 'sbuffer' : 'buffer') deol.bufnr
-    else
-      call win_gotoid(id[0])
-    endif
-
-    if options.cwd != ''
-      call deol.cd(options.cwd)
-    else
-      call s:cd(deol.cwd)
-    endif
-
-    let g:deol#_prev_deol = win_getid()
-    call s:insert_mode(deol)
+    call s:switch(options)
     return
   endif
 
@@ -56,7 +40,38 @@ function! deol#_start(options) abort
 
   let t:deol = deol#_new(cwd, options)
   call t:deol.init_deol_buffer()
+
   call s:insert_mode(t:deol)
+
+  if options.edit
+    call deol#edit()
+  endif
+endfunction
+
+function! s:switch(options) abort
+  let options = copy(a:options)
+  let deol = t:deol
+
+  let id = win_findbuf(deol.bufnr)
+  if empty(id)
+    execute (options.split ? 'sbuffer' : 'buffer') deol.bufnr
+  else
+    call win_gotoid(id[0])
+  endif
+
+  let g:deol#_prev_deol = win_getid()
+
+  if options.cwd != ''
+    call deol.cd(options.cwd)
+  else
+    call s:cd(deol.cwd)
+  endif
+
+  call s:insert_mode(deol)
+
+  if options.edit
+    call deol#edit()
+  endif
 endfunction
 
 function! deol#new(options) abort
@@ -92,16 +107,21 @@ function! deol#edit() abort
     Deol
   endif
 
+  let id = win_findbuf(t:deol.bufnr)
+  if !empty(id)
+    call win_gotoid(id[0])
+    call cursor(line('$'), 0)
+  endif
+
   if win_findbuf(t:deol.edit_bufnr) == [t:deol.edit_winid]
     call win_gotoid(t:deol.edit_winid)
   else
     split deol-edit
-    if !has_key(t:deol, 'bufedit')
-      call t:deol.init_edit_buffer()
-    endif
     let t:deol.edit_winid = win_getid()
     let t:deol.edit_bufnr = bufnr('%')
   endif
+
+  call t:deol.init_edit_buffer()
 
   " Set the current command line
   let buflines = filter(getbufline(t:deol.bufnr, 1, '$'), "v:val != ''")
@@ -225,6 +245,7 @@ function! s:deol.init_edit_buffer() abort
   setlocal hidden
   setlocal bufhidden=hide
   setlocal buftype=nofile
+
   resize 5
 
   " Set filetype
@@ -355,6 +376,7 @@ endfunction
 function! s:user_options() abort
   return {
         \ 'command': &shell,
+        \ 'edit': v:false,
         \ 'cwd': '',
         \ 'split': v:false,
         \ 'start_insert': v:true

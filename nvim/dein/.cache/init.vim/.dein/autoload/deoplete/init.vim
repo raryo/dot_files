@@ -226,7 +226,6 @@ function! deoplete#init#_context(event, sources) abort
         \ 'ignorecase': deoplete#custom#_get_option('ignore_case'),
         \ 'smartcase': deoplete#custom#_get_option('smart_case'),
         \ 'camelcase': deoplete#custom#_get_option('camel_case'),
-        \ 'delay': deoplete#custom#_get_option('auto_complete_delay'),
         \ 'sources': sources,
         \ 'max_abbr_width': max_width,
         \ 'max_kind_width': max_width,
@@ -238,10 +237,8 @@ function! deoplete#init#_context(event, sources) abort
         \ 'vars': filter(copy(g:),
         \       "stridx(v:key, 'deoplete#') == 0
         \        && v:key !=# 'deoplete#_yarp'"),
-        \ 'bufvars': filter(copy(b:), "stridx(v:key, 'deoplete_') == 0"),
         \ 'custom': deoplete#custom#_get(),
         \ 'omni__omnifunc': &l:omnifunc,
-        \ 'dict__dictionary': &l:dictionary,
         \ }
 endfunction
 
@@ -259,9 +256,9 @@ endfunction
 function! deoplete#init#_option() abort
   " Note: HTML omni func use search().
   return {
-        \ 'async_timeout': 100,
+        \ 'async_timeout': 150,
         \ 'auto_complete': v:true,
-        \ 'auto_complete_delay': 50,
+        \ 'auto_complete_delay': 20,
         \ 'auto_refresh_delay': 50,
         \ 'camel_case': v:false,
         \ 'complete_method': 'complete',
@@ -294,4 +291,16 @@ function! deoplete#init#_prev_completion() abort
         \ 'input': '',
         \ 'candidates': [],
         \ }
+endfunction
+
+function! deoplete#init#_python_version_check() abort
+  python3 << EOF
+import vim
+import sys
+vim.vars['deoplete#_python_version_check'] = (
+    sys.version_info.major,
+    sys.version_info.minor,
+    sys.version_info.micro) < (3, 5, 0)
+EOF
+  return g:deoplete#_python_version_check
 endfunction

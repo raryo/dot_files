@@ -1,2 +1,2 @@
 100
-['Shougo/dein.vim', 'Shougo/denite.nvim', 'Shougo/deol.nvim', 'Shougo/deoplete.nvim', 'Shougo/vimproc.vim', 'Vimjas/vim-python-pep8-indent', 'Yggdroot/indentLine', 'c9s/perlomni.vim', 'chriskempson/base16-vim', 'davidhalter/jedi-vim', 'othree/yajs', 'thinca/vim-quickrun', 'w0rp/ale', 'zchee/deoplete-jedi']
+['Shougo/dein.vim', 'Shougo/denite.nvim', 'Shougo/deol.nvim', 'Shougo/deoplete.nvim', 'Shougo/vimproc.vim', 'Vimjas/vim-python-pep8-indent', 'Yggdroot/indentLine', 'c9s/perlomni.vim', 'chriskempson/base16-vim', 'davidhalter/jedi-vim', 'othree/yajs', 'thinca/vim-quickrun', 'w0rp/ale', 'zchee/deoplete-jedi', 'zchee/deoplete-zsh']

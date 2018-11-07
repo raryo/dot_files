@@ -168,11 +168,11 @@ nnoremap <Leader>f :Denite file -highlight-matched-char=Underlined -highlight-mo
 nnoremap <Leader>l :Denite grep -highlight-matched-char=Underlined<CR>
 
 syntax enable
-set termguicolors
-"set t_Co=256
+"set termguicolors
+set t_Co=256
 "let base16colorspace=256
-"colorscheme tomorrow-night
-colorscheme base16-tomorrow-night
+colorscheme Tomorrow-night
+"colorscheme base16-tomorrow-night
 "colorscheme nord
 "color dracula
 highlight Normal ctermbg=NONE guibg=NONE

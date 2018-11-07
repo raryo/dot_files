@@ -4,9 +4,9 @@
 # License: MIT license
 # ============================================================================
 
-from .base import Base
-
 import re
+
+from deoplete.source.base import Base
 from deoplete.util import (
     convert2list, parse_buffer_pattern, set_pattern, getlines)
 
@@ -25,17 +25,17 @@ class Source(Base):
 
         prefix_patterns = {}
         set_pattern(prefix_patterns,
-                    '_', '\.')
+                    '_', r'\.')
         set_pattern(prefix_patterns,
-                    'c,objc', ['\.', '->'])
+                    'c,objc', [r'\.', '->'])
         set_pattern(prefix_patterns,
-                    'cpp,objcpp', ['\.', '->', '::'])
+                    'cpp,objcpp', [r'\.', '->', '::'])
         set_pattern(prefix_patterns,
                     'perl,php', ['->'])
         set_pattern(prefix_patterns,
-                    'ruby', ['\.', '::'])
+                    'ruby', [r'\.', '::'])
         set_pattern(prefix_patterns,
-                    'lua', ['\.', ':'])
+                    'lua', [r'\.', ':'])
         self.vars = {
             'prefix_patterns': prefix_patterns,
         }

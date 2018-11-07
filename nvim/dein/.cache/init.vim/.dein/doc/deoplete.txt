@@ -1,6 +1,6 @@
 *deoplete.txt*	Dark powered asynchronous completion framework for Neovim/Vim8.
 
-Version: 4.0
+Version: 4.1
 Author: Shougo <Shougo.Matsu at gmail.com>
 License: MIT license
 
@@ -46,7 +46,7 @@ Improvements in deoplete in comparison to |neocomplete|:
 INSTALL							*deoplete-install*
 
 Note: deoplete requires Neovim (0.2.0+) or Vim8 (latest is recommended) with
-Python3 and |+timers| enabled.
+Python3.5+ and |+timers| enabled.
 
 Please install nvim-yarp plugin for Vim8.
 https://github.com/roxma/nvim-yarp
@@ -104,7 +104,7 @@ The set of available options follows.
 async_timeout
 		The timeout of asynchronous completion.
 
-		Default: 100
+		Default: 150
 
 					*deoplete-options-auto_complete*
 auto_complete
@@ -116,9 +116,8 @@ auto_complete
 					*deoplete-options-auto_complete_delay*
 auto_complete_delay
 		Delay the completion after input in milliseconds.
-		Requires |+timers|.
 
-		Default value: 50
+		Default value: 20
 
 					*deoplete-options-auto_refresh_delay*
 auto_refresh_delay
@@ -560,6 +559,7 @@ dictionary					*deoplete-source-dictionary*
 		This source collects |deoplete-options-keyword_patterns|
 		keywords from 'dictionary'.
 		Note: It uses buffer-local 'dictionary' set up.
+		Note: It also supports directory.
 
 		rank: 100
 >
@@ -1077,7 +1077,7 @@ vars		(Dictionary)			(Optional)
 	If "context['is_async']" is True, the gather_candidates is called
 	repeatedly.
 >
-	from .base import Base
+	from deoplete.source.base import Base
 
 	class Source(Base):
 	    def __init__(self, vim):
@@ -1679,6 +1679,9 @@ A: https://github.com/zchee/deoplete-jedi/issues/35
 
 ==============================================================================
 COMPATIBILITY					*deoplete-compatibility*
+
+2018.10.20
+* Python 3.5+ is required.
 
 2018.04.09
 * Remove "g:deoplete#auto_complete_start_length" variable.
