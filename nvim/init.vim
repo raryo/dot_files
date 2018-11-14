@@ -9,6 +9,7 @@ endif
 
 " Required:
 set runtimepath+=~/dot_files/nvim/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=~/other_works/python/studio.nvim
 
 " Required:
 if dein#load_state('~/dot_files/nvim/dein')
