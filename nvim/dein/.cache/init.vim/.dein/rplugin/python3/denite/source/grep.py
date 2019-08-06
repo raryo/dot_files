@@ -8,7 +8,7 @@ import shlex
 from os.path import relpath
 
 from denite import util, process
-from denite.source.base import Base
+from denite.base.source import Base
 
 
 GREP_HEADER_SYNTAX = (
@@ -35,7 +35,7 @@ GREP_PATTERNS_HIGHLIGHT = 'highlight default link deniteGrepPatterns Function'
 def _candidate(result, path):
     return {
         'word': result[3],
-        'abbr': '{0}:{1}{2} {3}'.format(
+        'abbr': '{}:{}{} {}'.format(
             path,
             result[1],
             (':' + result[2] if result[2] != '0' else ''),
@@ -64,6 +64,7 @@ class Source(Base):
             'min_interactive_pattern': 3,
         }
         self.matchers = ['matcher/ignore_globs', 'matcher/regexp']
+        self.is_volatile = True
 
     def on_init(self, context):
         context['__proc'] = None
@@ -175,7 +176,9 @@ class Source(Base):
         if arg:
             if isinstance(arg, str):
                 paths = [arg]
-            elif not isinstance(arg, list):
+            elif isinstance(arg, list):
+                paths = arg[:]
+            else:
                 raise AttributeError(
                     '`args[0]` needs to be a `str` or `list`')
         elif context['path']:
@@ -190,7 +193,9 @@ class Source(Base):
                 if arg == '!':
                     arg = util.input(self.vim, context, 'Argument: ')
                 arguments = shlex.split(arg)
-            elif not isinstance(arg, list):
+            elif isinstance(arg, list):
+                arguments = arg[:]
+            else:
                 raise AttributeError(
                     '`args[1]` needs to be a `str` or `list`')
         return arguments
@@ -206,7 +211,9 @@ class Source(Base):
                     patterns = [context['input']]
                 else:
                     patterns = [arg]
-            elif not isinstance(arg, list):
+            elif isinstance(arg, list):
+                patterns = arg[:]
+            else:
                 raise AttributeError(
                     '`args[2]` needs to be a `str` or `list`')
         elif context['input']:

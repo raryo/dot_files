@@ -6,7 +6,7 @@
 
 import re
 
-from denite.source.base import Base
+from denite.base.source import Base
 from denite.util import relpath
 
 JUMP_HIGHLIGHT_SYNTAX = [
@@ -29,7 +29,7 @@ class Source(Base):
                 'syntax match {0}_{1} /{2}/ contained containedin={0}'.format(
                     self.syntax_name, syn['name'], syn['re']))
             self.vim.command(
-                'highlight default link {0}_{1} {2}'.format(
+                'highlight default link {}_{} {}'.format(
                     self.syntax_name, syn['name'], syn['link']))
 
     def on_init(self, context):
@@ -89,8 +89,6 @@ class Source(Base):
 
     def _parse(self, context):
         jump_list = []
-        for b in self.vim.buffers:
-            self.debug(b.name)
 
         for row_data in self.vim.call('execute', 'jumps').split('\n'):
             elements = row_data.split(maxsplit=3)

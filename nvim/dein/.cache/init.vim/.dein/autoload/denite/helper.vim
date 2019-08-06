@@ -35,17 +35,9 @@ endfunction
 function! denite#helper#call_denite(command, args, line1, line2) abort
   let [args, context] = denite#helper#_parse_options_args(a:args)
 
+  let context.command = a:command
   let context.firstline = a:line1
   let context.lastline = a:line2
-  if a:command ==# 'DeniteCursorWord'
-    let context.input = expand('<cword>')
-  elseif a:command ==# 'DeniteBufferDir'
-    let context.path = expand('%:p:h')
-  elseif a:command ==# 'DeniteProjectDir'
-    let context.path = denite#project#path2project_directory(
-          \ get(context, 'path', getcwd()),
-          \ get(context, 'root_markers', ''))
-  endif
 
   call denite#start(args, context)
 endfunction
@@ -181,7 +173,8 @@ function! denite#helper#_set_oldfiles(oldfiles) abort
   let v:oldfiles = a:oldfiles
 endfunction
 function! denite#helper#_get_oldfiles() abort
-  return filter(copy(v:oldfiles), 'filereadable(v:val) || buflisted(v:val)')
+  return filter(copy(v:oldfiles),
+        \ 'filereadable(fnamemodify(v:val, ":p")) || buflisted(v:val)')
 endfunction
 
 
@@ -200,16 +193,17 @@ function! denite#helper#_set_available_sources(source_names) abort
   let s:source_names = a:source_names
 endfunction
 function! s:_get_source_name(path) abort
-  if a:path ==# '__init__.py' || a:path ==# 'base.py'
+  let path_f = fnamemodify(a:path, ':gs?\\?/?')
+  if path_f ==# '__init__.py' || path_f ==# 'base.py'
     return ''
-  elseif a:path[-12:] ==# '/__init__.py'
-    if getfsize(a:path) == 0
+  elseif path_f[-12:] ==# '/__init__.py'
+    if getfsize(path_f) == 0
       " Probably the file exists for making a namespace so ignore
       return ''
     endif
-    return fnamemodify(a:path, ':h:s?.*/rplugin/python3/denite/source/??:r')
+    return fnamemodify(path_f, ':h:s?.*/rplugin/python3/denite/source/??:r')
   endif
-  return fnamemodify(a:path, ':s?.*/rplugin/python3/denite/source/??:r')
+  return fnamemodify(path_f, ':s?.*/rplugin/python3/denite/source/??:r')
 endfunction
 
 function! denite#helper#_get_wininfo() abort
@@ -220,4 +214,8 @@ function! denite#helper#_get_wininfo() abort
         \ 'winid': wininfo['winid'],
         \ 'tabnr': wininfo['tabnr'],
         \}
+endfunction
+function! denite#helper#_get_preview_window() abort
+  return len(filter(range(1, winnr('$')),
+        \ "getwinvar(v:val, '&previewwindow') ==# 1"))
 endfunction
