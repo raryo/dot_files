@@ -39,15 +39,15 @@ kmap("n", "<C-f>", "<C-d>", opts)
 kmap("n", "<C-b>", "<C-u>", opts)
 kmap("n", "<C-j>", "i<CR><ESC>", opts)
 kmap("n", "<C-m>", "i<CR><ESC>", opts)
-kmap("n", ";", ":", opts)
-kmap("n", ":", ";", opts)
+kmap("n", ";", ":", {noremap=true, silent=false})
+kmap("n", ":", ";", {noremap=true, silent=false})
 kmap("n", "Y", "y$", opts)
 kmap("n", "<C-w>n", ":bn", opts)
 kmap("n", "<C-w>p", ":bp", opts)
 
 
 -- visual
-kmap("v", ";", ":", opts)
-kmap("v", ":", ";", opts)
+kmap("v", ";", ":", {noremap=true, silent=false})
+kmap("v", ":", ";", {noremap=true, silent=false})
 
 

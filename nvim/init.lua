@@ -10,15 +10,15 @@ vim.o.encofing = 'utf-8'
 vim.scriptencoding = 'utf-8'
 
 -- visual
-vim.o.ambiwidth = 'double'
+--vim.o.ambiwidth = 'double'
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
 vim.o.autoindent = true
 vim.o.smartindent = true
-vim.cmd[[set termguicolors]]
-vim.cmd[[colorscheme nightfox]]
+vim.cmd("set termguicolors")
+vim.cmd("colorscheme nightfox")
 
 vim.o.visualbell = false
 vim.o.number = true

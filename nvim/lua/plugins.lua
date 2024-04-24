@@ -22,7 +22,9 @@ return {
 	  "EdenEast/nightfox.nvim",
 	  lazy = false,
 	  priority = 1000,
-	  opts = {},
+	  config = function()
+      require('nightfox').setup({options={transparent=true}})
+    end,
 	} ,
   ----------------
   -- UI
@@ -110,44 +112,64 @@ return {
   -- completion
   -- ------------------
   {
-   'Shougo/ddc-ui-native' ,
-   --'Shougo/pum.vim',
-   lazy=false,
+    'hrsh7th/cmp-buffer'
   },
   {
-   'tani/ddc-fuzzy' 
+    'rinx/cmp-skkeleton'
   },
-  
   {
-   'Shougo/ddc-source-around' 
-  },
-
-  {
-    'Shougo/ddc.vim',
-    dependencies = { 'vim-denops/denops.vim' },
+    'hrsh7th/nvim-cmp',
     config = function()
-      --vim.fn['ddc#custom#patch_global']('ui', 'pum')
-      vim.fn['ddc#custom#patch_global']('ui', 'native')
-      vim.fn['ddc#custom#patch_global']('sources', {'skkeleton', 'around'})
-      vim.fn['ddc#custom#patch_global']('sourceOptions', {
-                 _= {
-                   matchers= {'matcher_fuzzy'},
-                   sorters= {'sorter_fuzzy'},
-                   converters= {'converter_fuzzy'},
-                 },
-                 skkeleton= {
-                   mark='skk',
-                   matchers= {},
-                   sorters= {},
-                   converters= {},
-                   isVolatile=true,
-                   minAutoCompleteLength= 1,
-                 },
-                 around= {
-                   mark='A'
-                 },
-       })
-      vim.fn['ddc#enable']()
+      local cmp = require('cmp')
+      cmp.setup({
+        sources = cmp.config.sources({
+          {name = 'skkeleton'},
+          {name = 'buffer'},
+        })
+      })
     end,
   },
+--  {
+--   'Shougo/ddc-ui-native' ,
+--   --'Shougo/pum.vim',
+--   lazy=false,
+--  },
+--  {
+--   'tani/ddc-fuzzy' 
+--  },
+--  
+--  {
+--   'Shougo/ddc-source-around' 
+--  },
+--
+--  {
+--    'Shougo/ddc.vim',
+--    dependencies = { 'vim-denops/denops.vim' },
+--    config = function()
+--      --vim.fn['ddc#custom#patch_global']('ui', 'pum')
+--      vim.fn['ddc#custom#patch_global']('ui', 'native')
+--      vim.fn['ddc#custom#patch_global']('sources', {'skkeleton', 'around'})
+--      vim.fn['ddc#custom#patch_global']('sourceOptions', {
+--                 _= {
+--                   matchers= {'matcher_fuzzy'},
+--                   sorters= {'sorter_fuzzy'},
+--                   converters= {'converter_fuzzy'},
+--                 },
+--                 skkeleton= {
+--                   mark='skk',
+--                   matchers= {},
+--                   sorters= {},
+--                   converters= {},
+--                   isVolatile=true,
+--                   minAutoCompleteLength= 1,
+--                 },
+--                 around= {
+--                   mark='A'
+--                 },
+--       })
+--      vim.fn['ddc#enable']()
+--    end,
+--  },
 }
+
+
