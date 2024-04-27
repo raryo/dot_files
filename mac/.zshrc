@@ -67,5 +67,5 @@ setopt NO_BEEP
 setopt NUMERIC_GLOB_SORT
 setopt NOCLOBBER
 
-export PATH=/usr/local/bin:/usr/local/opt/flex:/usr/bin:/usr/sbin:/bin:sbin:/opt/X11/bin:/usr/local/share/dotnet:/Library/Frameworks/Mono.frameworks/Versions/Current/Commands:/Library/Tex/texbin:~/bin:~/apps/solvate_1.0:~/apps/ncbi-blast-2.6.0+/bin:~/apps:/Users/rshimura/src/kotlin-native-macos-0.9.3/bin:$PATH
+export PATH=~/local/bin:/usr/local/bin:/usr/local/opt/flex:/usr/bin:/usr/sbin:/bin:sbin:/opt/X11/bin:/usr/local/share/dotnet:/Library/Frameworks/Mono.frameworks/Versions/Current/Commands:/Library/Tex/texbin:~/bin:~/apps/solvate_1.0:~/apps/ncbi-blast-2.6.0+/bin:~/apps:/Users/rshimura/src/kotlin-native-macos-0.9.3/bin:$PATH
 
