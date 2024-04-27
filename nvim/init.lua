@@ -1,6 +1,7 @@
 require('lazy_nvim_bootstrap')
 require('keymaps')
 require('colorscheme')
+require("lazy").setup("plugins")
 require('plugins')
 
 

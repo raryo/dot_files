@@ -1,15 +1,16 @@
-require("lazy").setup("plugins", {
-  performance = {
-    rtp = {
-      disabled_plugins = {
-        "netrw",
-        "netrwPlugin",
-        "netrwSettings",
-        "netrwFileHandlers",
-      },
-    },
-  },
-})
+--require("lazy").setup("plugins", {
+--  performance = {
+--    rtp = {
+--      disabled_plugins = {
+--        "netrw",
+--        "netrwPlugin",
+--        "netrwSettings",
+--        "netrwFileHandlers",
+--      },
+--    },
+--  },
+--})
+--require("lazy").setup("plugins")
 
 
 
