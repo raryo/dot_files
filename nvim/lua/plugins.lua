@@ -7,7 +7,7 @@
 --        "netrwSettings",
 --        "netrwFileHandlers",
 --      },
---    },
+   -- },
 --  },
 --})
 --require("lazy").setup("plugins")
@@ -20,7 +20,7 @@ return {
   -- colorscheme
   -- ------------------------
 	{
-	  "EdenEast/nightfox.nvim",
+    "EdenEast/nightfox.nvim",
 	  lazy = false,
 	  priority = 1000,
 	  config = function()
@@ -36,6 +36,14 @@ return {
       vim.cmd('colorscheme nightfox')
       require('lualine').setup()
     end,
+  },
+
+  {
+    'shellRaining/hlchunk.nvim',
+    event = {'UIEnter' },
+    config = function()
+      require('hlchunk').setup({})
+    end
   },
 
   -----------------------
@@ -63,7 +71,6 @@ return {
     'nvim-telescope/telescope.nvim',
     keys = {
       { "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Find files", },
-      { "<leader>fb", function() require("telescope.builtin").buffers() end, desc = "Find buffers opend", },
       { "<leader>fb", function() require("telescope.builtin").buffers() end, desc = "Find buffers opend", },
       { "<leader>fr", function() require("telescope").load_extension('file_browser').file_browser() end, desc = "Open File browser", },
       { "<leader>/", function() require("telescope.builtin").current_buffer_fuzzy_find() end, desc = "FZ search of current buffer", },
@@ -116,6 +123,12 @@ return {
     'hrsh7th/cmp-buffer'
   },
   {
+    'hrsh7th/cmp-path'
+  },
+  {
+    'hrsh7th/cmp-cmdline'
+  },
+  {
     'rinx/cmp-skkeleton'
   },
   {
@@ -123,54 +136,84 @@ return {
     config = function()
       local cmp = require('cmp')
       cmp.setup({
+        mapping = cmp.mapping.preset.insert({
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-g>'] = cmp.mapping.abort(),
+          ['<C-n>'] = cmp.mapping({
+            c = function()
+                if cmp.visible() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                else
+                    vim.api.nvim_feedkeys(t('<DOWN>'), 'n', true)
+                end
+            end,
+            i = function(fallback)
+                if cmp.visible() then
+                  local entry = cmp.get_selected_entry()
+                  -- if not entry then
+                  --   cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                  -- end
+                  -- cmp.complete()
+                  cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                else
+                    fallback()
+                end
+            end
+          }),
+          ['<C-p>'] = cmp.mapping({
+              c = function()
+                  if cmp.visible() then
+                      cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+                  else
+                      vim.api.nvim_feedkeys(t('<Up>'), 'n', true)
+                  end
+              end,
+              i = function(fallback)
+                  if cmp.visible() then
+                    -- local entry = cmp.get_selected_entry()
+                    -- if not entry then
+                    --   cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+                    -- end
+                    -- cmp.confirm()
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+                  else
+                      fallback()
+                  end
+              end
+          }),
+        }),
         sources = cmp.config.sources({
           {name = 'skkeleton'},
           {name = 'buffer'},
         })
       })
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+      cmp.setup.cmdline({ ':' }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline' }
+        }) 
+      })
     end,
   },
---  {
---   'Shougo/ddc-ui-native' ,
---   --'Shougo/pum.vim',
---   lazy=false,
---  },
---  {
---   'tani/ddc-fuzzy' 
---  },
---  
---  {
---   'Shougo/ddc-source-around' 
---  },
---
---  {
---    'Shougo/ddc.vim',
---    dependencies = { 'vim-denops/denops.vim' },
---    config = function()
---      --vim.fn['ddc#custom#patch_global']('ui', 'pum')
---      vim.fn['ddc#custom#patch_global']('ui', 'native')
---      vim.fn['ddc#custom#patch_global']('sources', {'skkeleton', 'around'})
---      vim.fn['ddc#custom#patch_global']('sourceOptions', {
---                 _= {
---                   matchers= {'matcher_fuzzy'},
---                   sorters= {'sorter_fuzzy'},
---                   converters= {'converter_fuzzy'},
---                 },
---                 skkeleton= {
---                   mark='skk',
---                   matchers= {},
---                   sorters= {},
---                   converters= {},
---                   isVolatile=true,
---                   minAutoCompleteLength= 1,
---                 },
---                 around= {
---                   mark='A'
---                 },
---       })
---      vim.fn['ddc#enable']()
---    end,
---  },
+
+  ------------------------------------------
+  -- coding support
+  -- ---------------------------------------
+  {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup()
+    end,
+  },
+
 }
 
 

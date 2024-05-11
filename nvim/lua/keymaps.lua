@@ -25,8 +25,8 @@ kmap("i", "<C-d>", "<DEL>", opts)
 kmap("i", "<C-]>", "<ESC>", opts)
 kmap("i", "<C-e>", "<END>", opts)
 kmap("i", "<C-a>", "<HOME>", opts)
---kmap("i", "<C-n>", "<DOWN>", opts)
---kmap("i", "<C-p>", "<UP>", opts)
+-- kmap("i", "<C-n>", "<DOWN>", opts)
+-- kmap("i", "<C-p>", "<UP>", opts)
 
 ---- skkeleton
 kmap('i', 'jj', '<Plug>(skkeleton-enable)', opts)
@@ -42,6 +42,7 @@ kmap("n", "<C-m>", "i<CR><ESC>", opts)
 kmap("n", ";", ":", {noremap=true, silent=false})
 kmap("n", ":", ";", {noremap=true, silent=false})
 kmap("n", "Y", "y$", opts)
+kmap("n", "<C-;>", "<Plug>(comment_toggle_linewise_current)", opts)
 kmap("n", "<C-w>n", ":bn", opts)
 kmap("n", "<C-w>p", ":bp", opts)
 
@@ -49,5 +50,6 @@ kmap("n", "<C-w>p", ":bp", opts)
 -- visual
 kmap("v", ";", ":", {noremap=true, silent=false})
 kmap("v", ":", ";", {noremap=true, silent=false})
+kmap("v", "<C-;>", "<Plug>(comment_toggle_linewise_visual)", opts)
 
 
