@@ -3,3 +3,5 @@ if status is-interactive
     abbr --add vim nvim
     abbr --add bim nvim
 end
+
+fish_add_path ~/.deno/bin ~/apps/nvim-macos/bin
